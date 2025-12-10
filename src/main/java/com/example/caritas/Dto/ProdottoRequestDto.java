@@ -16,7 +16,7 @@ public class ProdottoRequestDto {
     @Size(max = 50, message = "Name cannot exceed 50 characters")
     private String nome;
     private String descrizione;
-    private Set<UUID> categoriaIds;
+    private UUID CategoriaId;
 
 
 }

@@ -1,4 +1,4 @@
 ### GET prodotto
-GET http://localhost:8080/api/prodotti/1e82604a-7d64-4134-a53c-175c34d0f1e7
+GET http://localhost:8080/api/prodotti/{{prodotto_id}}
 Content-Type: application/json
 

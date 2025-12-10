@@ -1,17 +1,16 @@
 package com.example.caritas.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
 @Table(name = "beneficiario")
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Beneficiario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

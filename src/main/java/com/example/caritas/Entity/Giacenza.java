@@ -1,20 +1,18 @@
 package com.example.caritas.Entity;
 
-import com.example.caritas.Entity.Magazzino;
-import com.example.caritas.Entity.Prodotto;
+
 import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
+
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "giacenza")
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class Giacenza {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

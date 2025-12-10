@@ -7,6 +7,8 @@ import com.example.caritas.Entity.Prodotto;
 import com.example.caritas.Mapper.ProdottoMapper;
 import com.example.caritas.Repository.CategoriaRepository;
 import com.example.caritas.Repository.ProdottoRepository;
+import com.example.caritas.exception.AlreadyExistsByNomeException;
+import com.example.caritas.exception.NullException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,28 +25,24 @@ public class ProdottoServiceImp implements ProdottoService {
 
     @Override
     public ProdottoResponseDto creaProdotto(ProdottoRequestDto prodottoRequestDto) {
-        Set<Categoria> categorie = convertCatogorie(prodottoRequestDto.getCategoriaIds());
-        Prodotto prodotto = ProdottoMapper.toEntity(prodottoRequestDto,categorie);
+        Categoria categoria = null;
+        if (prodottoRequestDto.getCategoriaId() != null) {
+            categoria = categoriaRepository.findById(prodottoRequestDto.getCategoriaId()).get();
+        }
+        Prodotto prodotto = ProdottoMapper.toEntity(prodottoRequestDto, categoria);
+        if(prodottoRepository.existsByNome(prodotto.getNome())){
+            throw new AlreadyExistsByNomeException(
+                    "A Product with this nome already exists:"
+                            + prodottoRequestDto.getNome());
+        }
         Prodotto prodottoReturned = prodottoRepository.save(prodotto);
         return ProdottoMapper.toDto(prodottoReturned);
     }
 
     @Override
     public ProdottoResponseDto trovaProdotto(UUID prodottoId) {
-        System.out.println(prodottoId);
-        Prodotto prodotto = prodottoRepository.findById(prodottoId).orElse(null);
+        Prodotto prodotto = prodottoRepository.findById(prodottoId)
+                .orElseThrow(()-> new NullException("Prodotto non trovato"));
         return ProdottoMapper.toDto(prodotto);
-    }
-
-    private Set<Categoria> convertCatogorie(Set<UUID> categorieUuids){
-        Set<Categoria> categorie = new HashSet<>();
-        if (categorieUuids != null) {
-            for (UUID categoriaId : categorieUuids) {
-                Categoria categoria = categoriaRepository.findById(categoriaId)
-                        .orElseThrow(() -> new RuntimeException("Categoria non trovata: " + categoriaId));
-                categorie.add(categoria);
-            }
-        }
-        return categorie;
     }
 }

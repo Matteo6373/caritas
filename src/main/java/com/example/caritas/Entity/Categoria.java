@@ -1,8 +1,8 @@
 package com.example.caritas.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,9 +10,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "categoria")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +19,4 @@ public class Categoria {
     @NotNull
     private String nome;
     private String descrizione;
-
-    @ManyToMany(mappedBy = "categorie")
-    private Set<Prodotto> prodotti = new HashSet<>();
 }

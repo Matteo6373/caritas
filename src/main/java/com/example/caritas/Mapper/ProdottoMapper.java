@@ -1,14 +1,13 @@
 package com.example.caritas.Mapper;
 
+
 import com.example.caritas.Dto.ProdottoRequestDto;
 import com.example.caritas.Dto.ProdottoResponseDto;
+
 import com.example.caritas.Entity.Categoria;
 import com.example.caritas.Entity.Prodotto;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 
 public class ProdottoMapper {
@@ -18,19 +17,17 @@ public class ProdottoMapper {
         prodottoResponseDto.setId(prodotto.getId().toString());
         prodottoResponseDto.setNome(prodotto.getNome());
         prodottoResponseDto.setDescrizione(prodotto.getDescrizione());
-        Set<Categoria> categorieCopiate = prodotto.getCategorie();
-        Set<UUID> categoriaIds = categorieCopiate.stream()
-                .map(Categoria::getId)
-                .collect(Collectors.toSet());
-        prodottoResponseDto.setCategoriaIds(categoriaIds);
+        if (prodotto.getCategoria() != null) {
+            prodottoResponseDto.setCategoria(CategoriaMapper.toDto(prodotto.getCategoria()));
+        }
         return prodottoResponseDto;
-    }
-    public static Prodotto toEntity(ProdottoRequestDto dto, Set<Categoria> categorie) {
 
+    }
+    public static Prodotto toEntity(ProdottoRequestDto prodottoRequestdto, Categoria categoria) {
         Prodotto prodotto = new Prodotto();
-        prodotto.setNome(dto.getNome());
-        prodotto.setDescrizione(dto.getDescrizione());
-        prodotto.setCategorie(categorie);
+        prodotto.setNome(prodottoRequestdto.getNome());
+        prodotto.setDescrizione(prodottoRequestdto.getDescrizione());
+        prodotto.setCategoria(categoria);
         return prodotto;
     }
 }

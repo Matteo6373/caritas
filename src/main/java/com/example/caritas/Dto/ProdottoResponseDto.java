@@ -14,6 +14,5 @@ public class ProdottoResponseDto {
     private String id;
     private String nome;
     private String descrizione;
-    private Set<UUID> categoriaIds;
-
+    private CategoriaResponseDto categoria;
 }

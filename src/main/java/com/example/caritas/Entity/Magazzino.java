@@ -9,9 +9,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "magazzino")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class Magazzino {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
