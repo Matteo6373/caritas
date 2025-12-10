@@ -1,0 +1,12 @@
+### POST prodotto
+POST http://localhost:8080/api/prodotti
+Content-Type: application/json
+
+{
+  "nome": "Pollo Aia",
+  "descrizione": "pollo allevato a terra",
+  "categoriaIds": [
+    "{{categoria_id}}"
+  ]
+}
+> {% client.global.set("prodotto_id", response.body.id) %}

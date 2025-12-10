@@ -1,0 +1,10 @@
+### POST categoria
+POST http://localhost:8080/api/categorie
+Content-Type: application/json
+
+{
+  "nome": "alimentare",
+  "descrizione": "tutto cio che si mangia"
+}
+
+> {% client.global.set("categoria_id", response.body.id) %}
