@@ -2,6 +2,8 @@ package com.example.caritas.Controller;
 
 import com.example.caritas.Dto.ProdottoRequestDto;
 import com.example.caritas.Dto.ProdottoResponseDto;
+import com.example.caritas.Entity.Prodotto;
+import com.example.caritas.Mapper.ProdottoMapper;
 import com.example.caritas.Service.ProdottoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,8 @@ public class ProdottoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdottoResponseDto> getProdotto(@PathVariable UUID id){
-        ProdottoResponseDto prodottoResponseDto = prodottoService.trovaProdotto(id);
+        Prodotto prodotto = prodottoService.trovaProdotto(id);
+        ProdottoResponseDto prodottoResponseDto = ProdottoMapper.toDto(prodotto);
         return ResponseEntity.ok(prodottoResponseDto);
     }
 }

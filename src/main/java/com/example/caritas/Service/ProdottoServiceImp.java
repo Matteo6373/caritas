@@ -40,9 +40,9 @@ public class ProdottoServiceImp implements ProdottoService {
     }
 
     @Override
-    public ProdottoResponseDto trovaProdotto(UUID prodottoId) {
+    public Prodotto trovaProdotto(UUID prodottoId) {
         Prodotto prodotto = prodottoRepository.findById(prodottoId)
                 .orElseThrow(()-> new NullException("Prodotto non trovato"));
-        return ProdottoMapper.toDto(prodotto);
+        return prodotto;
     }
 }

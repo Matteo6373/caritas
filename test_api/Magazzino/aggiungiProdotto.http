@@ -1,0 +1,9 @@
+### POST prodotto
+POST http://localhost:8080/api/magazzino/{{magazzino_id}}
+Content-Type: application/json
+
+{
+  "prodottoId": "{{prodotto_id}}",
+  "quantita": 4
+}
+

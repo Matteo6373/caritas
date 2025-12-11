@@ -3,7 +3,7 @@ POST http://localhost:8080/api/prodotti
 Content-Type: application/json
 
 {
-  "nome": "pesce",
+  "nome": "pollo",
   "descrizione": "allevato a terra",
   "CategoriaId": "{{categoria_id}}"
 }

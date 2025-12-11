@@ -8,4 +8,7 @@ import java.util.UUID;
 
 @Repository
 public interface MagazzinoRepository extends JpaRepository<Magazzino, UUID> {
+    boolean existsByNome(String nome);
+
+    UUID id(UUID id);
 }

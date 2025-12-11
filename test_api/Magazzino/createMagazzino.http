@@ -1,0 +1,8 @@
+### POST prodotto
+POST http://localhost:8080/api/magazzino
+Content-Type: application/json
+
+{
+  "nome": "Levico Terme"
+}
+> {% client.global.set("magazzino_id", response.body.id) %}
