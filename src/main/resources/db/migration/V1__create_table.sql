@@ -4,13 +4,14 @@ CREATE TABLE beneficiario
     nome         VARCHAR(255) NOT NULL,
     cognome      VARCHAR(255) NOT NULL,
     data_nascita date         NOT NULL,
+    magazzino_id UUID         NOT NULL,
     CONSTRAINT pk_beneficiario PRIMARY KEY (id)
 );
 
 CREATE TABLE categoria
 (
-    id          UUID         NOT NULL,
-    nome        VARCHAR(255) NOT NULL,
+    id          UUID NOT NULL,
+    nome        VARCHAR(255),
     descrizione VARCHAR(255),
     CONSTRAINT pk_categoria PRIMARY KEY (id)
 );
@@ -18,8 +19,8 @@ CREATE TABLE categoria
 CREATE TABLE giacenza
 (
     id           UUID    NOT NULL,
-    magazzino_id UUID,
-    prodotto_id  UUID,
+    magazzino_id UUID    NOT NULL,
+    prodotto_id  UUID    NOT NULL,
     quantita     INTEGER NOT NULL,
     CONSTRAINT pk_giacenza PRIMARY KEY (id)
 );
@@ -39,6 +40,9 @@ CREATE TABLE prodotti
     categoria_id UUID,
     CONSTRAINT pk_prodotti PRIMARY KEY (id)
 );
+
+ALTER TABLE beneficiario
+    ADD CONSTRAINT FK_BENEFICIARIO_ON_MAGAZZINO FOREIGN KEY (magazzino_id) REFERENCES magazzino (id);
 
 ALTER TABLE giacenza
     ADD CONSTRAINT FK_GIACENZA_ON_MAGAZZINO FOREIGN KEY (magazzino_id) REFERENCES magazzino (id);

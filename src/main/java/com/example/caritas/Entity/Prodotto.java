@@ -22,6 +22,7 @@ public class Prodotto {
     private String descrizione;
 
     @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     @OneToMany(mappedBy = "prodotto")

@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,7 +28,10 @@ public class ProdottoServiceImp implements ProdottoService {
     public ProdottoResponseDto creaProdotto(ProdottoRequestDto prodottoRequestDto) {
         Categoria categoria = null;
         if (prodottoRequestDto.getCategoriaId() != null) {
-            categoria = categoriaRepository.findById(prodottoRequestDto.getCategoriaId()).get();
+            Optional<Categoria> c = categoriaRepository.findById(prodottoRequestDto.getCategoriaId());
+            if (c.isPresent()) {
+                categoria = c.get();
+            }
         }
         Prodotto prodotto = ProdottoMapper.toEntity(prodottoRequestDto, categoria);
         if(prodottoRepository.existsByNome(prodotto.getNome())){

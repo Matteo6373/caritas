@@ -1,0 +1,4 @@
+### Get Beneficiari
+GET http://localhost:8080/api/magazzino/{{magazzino_id}}/beneficiari
+Content-Type: application/json
+

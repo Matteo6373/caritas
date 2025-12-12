@@ -16,4 +16,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleIdNullExceptionException(NullException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+    @ExceptionHandler(QuantitaExceedsGiacenze.class)
+    public ResponseEntity<String> handleQuantitaExceedsGiacenze(QuantitaExceedsGiacenze e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
 }

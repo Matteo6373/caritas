@@ -18,11 +18,11 @@ public class Giacenza {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "magazzino_id")
     private Magazzino magazzino;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "prodotto_id")
     private Prodotto prodotto;
 

@@ -1,5 +1,5 @@
 ### POST prodotto
-POST http://localhost:8080/api/magazzino/{{magazzino_id}}
+POST http://localhost:8080/api/magazzino/{{magazzino_id}}/giacenze
 Content-Type: application/json
 
 {

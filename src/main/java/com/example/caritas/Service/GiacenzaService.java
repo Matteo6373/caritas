@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface GiacenzaService {
     public GiacenzaResponseDto addProduct(GiacenzaRequestDto requestDto, UUID magazzinoId);
+    public GiacenzaResponseDto removeProduct(GiacenzaRequestDto requestDto,UUID magazzinoId);
 }

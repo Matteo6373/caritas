@@ -1,5 +1,6 @@
 package com.example.caritas.Service;
 
+import com.example.caritas.Dto.BeneficiarioResponseDto;
 import com.example.caritas.Dto.GiacenzaResponseDto;
 import com.example.caritas.Dto.MagazzinoRequestDto;
 import com.example.caritas.Dto.MagazzinoResponseDto;
@@ -12,5 +13,6 @@ public interface MagazzinoService {
     public MagazzinoResponseDto createMagazzino(MagazzinoRequestDto magazzinoRequestDto);
     public Magazzino findByUuid(UUID uuid);
     public MagazzinoResponseDto findMagazzinoById(UUID uuid);
+    public Set<BeneficiarioResponseDto> findAllBeneficiarios(UUID magazzinoId);
 //    public Set<GiacenzaResponseDto> findAllGiacenzeByMagazzinoId(UUID magazzinoId);
 }

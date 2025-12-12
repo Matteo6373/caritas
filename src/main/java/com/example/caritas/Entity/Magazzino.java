@@ -21,5 +21,7 @@ public class Magazzino {
     @OneToMany(mappedBy = "magazzino")
     private Set<Giacenza> giacenze = new HashSet<>();
 
+    @OneToMany(mappedBy = "magazzino")
+    private Set<Beneficiario> beneficiari = new HashSet<>();
 
 }

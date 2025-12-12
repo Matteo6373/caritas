@@ -7,6 +7,7 @@ import com.example.caritas.Entity.Magazzino;
 import com.example.caritas.Entity.Prodotto;
 import com.example.caritas.Mapper.GiacenzaMapper;
 import com.example.caritas.Repository.GiacenzaRepository;
+import com.example.caritas.exception.QuantitaExceedsGiacenze;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,38 @@ public class GiacenzaServiceImp implements GiacenzaService{
                         (giacenza.getQuantita() != null ? giacenza.getQuantita() : 0)
                                 + (requestDto.getQuantita() != null ? requestDto.getQuantita() : 0)
                 );
+                Giacenza giacenzaSaved = giacenzaRepository.save(giacenza);
+                return GiacenzaMapper.toDto(giacenzaSaved);
+            }
+        }
+
+        // se non esiste ancora, crea nuova giacenza
+        Giacenza giacenzaUpdated = new Giacenza();
+        giacenzaUpdated.setProdotto(prodotto);
+        giacenzaUpdated.setMagazzino(magazzino);
+        giacenzaUpdated.setQuantita(requestDto.getQuantita());
+
+        Giacenza giacenzaSaved = giacenzaRepository.save(giacenzaUpdated);
+        return GiacenzaMapper.toDto(giacenzaSaved);
+    }
+
+    @Override
+    public GiacenzaResponseDto removeProduct(GiacenzaRequestDto requestDto, UUID magazzinoId) {
+        Magazzino magazzino = magazzinoService.findByUuid(magazzinoId);
+        Prodotto prodotto = prodottoService.trovaProdotto(requestDto.getProdottoId());
+        Set<Giacenza> giacenze = magazzino.getGiacenze();
+        for (Giacenza giacenza : giacenze) {
+            if (giacenza.getProdotto().getId().equals(prodotto.getId())) {
+                // aggiorna quantità
+                if(giacenza.getQuantita() >= requestDto.getQuantita()) {
+                    giacenza.setQuantita(
+                            (giacenza.getQuantita() != null ? giacenza.getQuantita() : 0)
+                                    - (requestDto.getQuantita() != null ? requestDto.getQuantita() : 0)
+                    );
+                }else{
+                    throw new QuantitaExceedsGiacenze(
+                            "The quantity to remove exceeds the quantity in stock");
+                }
                 Giacenza giacenzaSaved = giacenzaRepository.save(giacenza);
                 return GiacenzaMapper.toDto(giacenzaSaved);
             }

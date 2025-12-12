@@ -15,12 +15,15 @@ public class Beneficiario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @NotNull
     private String nome;
     @NotNull
     private String cognome;
     @NotNull
     private LocalDate dataNascita;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "magazzino_id", nullable = false)
+    private Magazzino magazzino;
 
 }

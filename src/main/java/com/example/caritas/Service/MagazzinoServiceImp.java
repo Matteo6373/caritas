@@ -1,10 +1,10 @@
 package com.example.caritas.Service;
 
-import com.example.caritas.Dto.GiacenzaResponseDto;
+import com.example.caritas.Dto.BeneficiarioResponseDto;
 import com.example.caritas.Dto.MagazzinoRequestDto;
 import com.example.caritas.Dto.MagazzinoResponseDto;
 import com.example.caritas.Entity.Magazzino;
-import com.example.caritas.Mapper.GiacenzaMapper;
+import com.example.caritas.Mapper.BeneficiarioMapper;
 import com.example.caritas.Mapper.MagazzinoMapper;
 import com.example.caritas.Repository.MagazzinoRepository;
 import com.example.caritas.exception.AlreadyExistsByNomeException;
@@ -12,9 +12,11 @@ import com.example.caritas.exception.NullException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -34,8 +36,9 @@ public class MagazzinoServiceImp implements MagazzinoService{
 
     @Override
     public Magazzino findByUuid(UUID uuid) {
-        Magazzino magazzino = magazzinoRepository.findById(uuid).get();
-        return magazzino;
+        return magazzinoRepository.findById(uuid).orElseThrow(()
+                ->new NullException("Magazzino not found"));
+
     }
 
     @Override
@@ -44,7 +47,16 @@ public class MagazzinoServiceImp implements MagazzinoService{
         return MagazzinoMapper.toDto(magazzino);
     }
 
-//    @Override
+
+    public Set<BeneficiarioResponseDto> findAllBeneficiarios(UUID magazzinoId){
+        Magazzino magazzino = findByUuid(magazzinoId);
+        return magazzino.getBeneficiari()
+                .stream().map(BeneficiarioMapper::toDto)
+                .collect(Collectors.toSet());
+
+    }
+
+    //    @Override
 //    public Set<GiacenzaResponseDto> findAllGiacenzeByMagazzinoId(UUID magazzinoId) {
 //        Magazzino magazzino = magazzinoRepository.findById(magazzinoId)
 //                .orElseThrow(() -> new NullException("Magazzino non trovato"));
@@ -54,6 +66,5 @@ public class MagazzinoServiceImp implements MagazzinoService{
 //                .map(GiacenzaMapper::toDto)
 //                .collect(Collectors.toSet());
 //    }
-
 
 }

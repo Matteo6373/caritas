@@ -1,0 +1,11 @@
+### POST beneficiario
+POST http://localhost:8080/api/magazzino/{{magazzino_id}}/beneficiari
+Content-Type: application/json
+
+{
+  "nome": "Mario",
+  "cognome": "Rossi",
+  "dataNascita": "1990-05-12",
+  "magazzinoId": "{{magazzino_id}}"
+}
+> {% client.global.set("beneficiario_id", response.body.id) %}
