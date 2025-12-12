@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -26,8 +27,26 @@ public class ProdottoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdottoResponseDto> getProdotto(@PathVariable UUID id){
-        Prodotto prodotto = prodottoService.trovaProdotto(id);
+        Prodotto prodotto = prodottoService.getProdottoById(id);
         ProdottoResponseDto prodottoResponseDto = ProdottoMapper.toDto(prodotto);
         return ResponseEntity.ok(prodottoResponseDto);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProdottoResponseDto> deleteProdotto(@PathVariable UUID id){
+        ProdottoResponseDto prodottoResponseDto = prodottoService.deleteProdotto(id);
+        return ResponseEntity.ok(prodottoResponseDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdottoResponseDto> updateProdotto(
+            @PathVariable UUID id, @RequestBody ProdottoRequestDto prodottoRequestDto){
+        ProdottoResponseDto prodottoResponseDto = prodottoService.updateProdotto(prodottoRequestDto, id);
+        return ResponseEntity.ok(prodottoResponseDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<Set<ProdottoResponseDto>> getProdotti(){
+        Set<ProdottoResponseDto> prodotti =  prodottoService.getProdotti();
+        return ResponseEntity.ok(prodotti);
     }
 }

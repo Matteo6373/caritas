@@ -1,0 +1,10 @@
+### Put prodotti
+PUT http://localhost:8080/api/prodotti/{{prodotto_id}}
+Content-Type: application/json
+
+{
+  "nome": "pesce",
+  "descrizione": "dal lago di levico",
+  "CategoriaId": "{{categoria_id}}"
+}
+

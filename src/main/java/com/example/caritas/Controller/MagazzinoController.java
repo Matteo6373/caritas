@@ -1,8 +1,6 @@
 package com.example.caritas.Controller;
 
 import com.example.caritas.Dto.*;
-import com.example.caritas.Entity.Magazzino;
-import com.example.caritas.Entity.Prodotto;
 import com.example.caritas.Service.BeneficiarioService;
 import com.example.caritas.Service.GiacenzaService;
 import com.example.caritas.Service.MagazzinoService;
@@ -10,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 

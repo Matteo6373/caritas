@@ -20,4 +20,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleQuantitaExceedsGiacenze(QuantitaExceedsGiacenze e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
+    @ExceptionHandler(DeleteException.class)
+    public ResponseEntity<String> handleDeleteException(DeleteException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
 }
