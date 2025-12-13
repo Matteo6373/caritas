@@ -17,7 +17,6 @@ import java.util.UUID;
 public class MagazzinoController {
     private MagazzinoService magazzinoService;
     private GiacenzaService giacenzaService;
-    private BeneficiarioService beneficiarioService;
 
     @GetMapping("/{id}")
     public ResponseEntity<MagazzinoResponseDto> findById(@PathVariable UUID id) {
@@ -46,10 +45,15 @@ public class MagazzinoController {
         Set<BeneficiarioResponseDto> beneficiariResponseDto = magazzinoService.findAllBeneficiarios(id);
         return ResponseEntity.ok(beneficiariResponseDto);
     }
-    @PostMapping("/{id}/beneficiari")
-    public ResponseEntity<BeneficiarioResponseDto> createBeneficiario(
-            @PathVariable UUID id,@RequestBody BeneficiarioRequestDto beneficiarioRequestDto) {
-        BeneficiarioResponseDto beneficiarioResponseDto = beneficiarioService.createBeneficiario(beneficiarioRequestDto);
-        return ResponseEntity.ok(beneficiarioResponseDto);
+    @PutMapping("/{id}")
+    public ResponseEntity<MagazzinoResponseDto> updateMagazzino(
+            @PathVariable UUID id, @RequestBody MagazzinoRequestDto magazzinoRequestDto) {
+        MagazzinoResponseDto magazzinoResponseDto = magazzinoService.updateMagazzino(magazzinoRequestDto,id);
+        return ResponseEntity.ok(magazzinoResponseDto);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MagazzinoResponseDto> removeMagazzino(@PathVariable UUID id) {
+        MagazzinoResponseDto magazzinoResponseDto = magazzinoService.deleteMagazzino(id);
+        return ResponseEntity.ok(magazzinoResponseDto);
     }
 }

@@ -1,0 +1,11 @@
+### PUT beneficiario
+PUT  http://localhost:8080/api/beneficiari/{{beneficiario_id}}
+Content-Type: application/json
+
+{
+  "nome": "Luigi",
+  "cognome": "Verdi",
+  "dataNascita": "1995-07-11",
+  "magazzinoId": "{{magazzino_id}}"
+}
+

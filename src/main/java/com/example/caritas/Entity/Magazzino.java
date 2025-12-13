@@ -18,7 +18,10 @@ public class Magazzino {
 
     private String nome;
 
-    @OneToMany(mappedBy = "magazzino")
+    @OneToMany(mappedBy = "magazzino",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+            )
     private Set<Giacenza> giacenze = new HashSet<>();
 
     @OneToMany(mappedBy = "magazzino")

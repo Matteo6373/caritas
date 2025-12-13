@@ -17,7 +17,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -82,9 +81,12 @@ public class ProdottoServiceImp implements ProdottoService {
     }
 
     @Override
-    public Prodotto getProdottoById(UUID prodottoId) {
-        Prodotto prodotto = prodottoRepository.findById(prodottoId)
+    public Prodotto getProdottoById(UUID id) {
+        if(id == null) {
+            throw new NullException("id of prodotto is null");
+        }
+        return prodottoRepository.findById(id)
                 .orElseThrow(()-> new NullException("Prodotto non trovato"));
-        return prodotto;
+
     }
 }

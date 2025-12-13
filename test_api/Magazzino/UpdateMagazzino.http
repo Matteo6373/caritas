@@ -1,0 +1,8 @@
+### Put magazino
+PUT http://localhost:8080/api/magazzino/{{magazzino_id}}
+Content-Type: application/json
+
+{
+  "nome": "deposito di caldonazzo"
+}
+

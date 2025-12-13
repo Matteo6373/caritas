@@ -13,5 +13,5 @@ public class BeneficiarioResponseDto {
     private String id;
     private String nome;
     private String cognome;
-    private LocalDate dataNascimento;
+    private LocalDate dataNascita;
 }

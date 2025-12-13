@@ -22,7 +22,7 @@ public class GiacenzaServiceImp implements GiacenzaService{
     private ProdottoService prodottoService;
     @Override
     public GiacenzaResponseDto addProduct(GiacenzaRequestDto requestDto, UUID magazzinoId) {
-        Magazzino magazzino = magazzinoService.findByUuid(magazzinoId);
+        Magazzino magazzino = magazzinoService.getMagazzino(magazzinoId);
         Prodotto prodotto = prodottoService.getProdottoById(requestDto.getProdottoId());
         Set<Giacenza> giacenze = magazzino.getGiacenze();
         for (Giacenza giacenza : giacenze) {
@@ -49,7 +49,7 @@ public class GiacenzaServiceImp implements GiacenzaService{
 
     @Override
     public GiacenzaResponseDto removeProduct(GiacenzaRequestDto requestDto, UUID magazzinoId) {
-        Magazzino magazzino = magazzinoService.findByUuid(magazzinoId);
+        Magazzino magazzino = magazzinoService.getMagazzino(magazzinoId);
         Prodotto prodotto = prodottoService.getProdottoById(requestDto.getProdottoId());
         Set<Giacenza> giacenze = magazzino.getGiacenze();
         for (Giacenza giacenza : giacenze) {

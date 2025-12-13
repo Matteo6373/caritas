@@ -11,7 +11,7 @@ public class BeneficiarioMapper {
         dto.setId(beneficiario.getId().toString());
         dto.setNome(beneficiario.getNome());
         dto.setCognome(beneficiario.getCognome());
-        dto.setDataNascimento(beneficiario.getDataNascita());
+        dto.setDataNascita(beneficiario.getDataNascita());
         return dto;
     }
     public static Beneficiario toEntity(BeneficiarioRequestDto dto, Magazzino magazzino) {

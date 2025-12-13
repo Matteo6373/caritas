@@ -1,0 +1,4 @@
+### Delete magazzino
+DELETE http://localhost:8080/api/magazzino/{{magazzino_id}}
+Content-Type: application/json
+
