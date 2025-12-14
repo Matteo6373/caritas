@@ -41,6 +41,25 @@ CREATE TABLE prodotti
     CONSTRAINT pk_prodotti PRIMARY KEY (id)
 );
 
+CREATE TABLE user_magazzino
+(
+    magazzino_id UUID NOT NULL,
+    user_id      UUID NOT NULL,
+    CONSTRAINT pk_user_magazzino PRIMARY KEY (magazzino_id, user_id)
+);
+
+CREATE TABLE users
+(
+    id       UUID NOT NULL,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    role     VARCHAR(255),
+    CONSTRAINT pk_users PRIMARY KEY (id)
+);
+
+ALTER TABLE users
+    ADD CONSTRAINT uc_users_username UNIQUE (username);
+
 ALTER TABLE beneficiario
     ADD CONSTRAINT FK_BENEFICIARIO_ON_MAGAZZINO FOREIGN KEY (magazzino_id) REFERENCES magazzino (id);
 
@@ -52,3 +71,9 @@ ALTER TABLE giacenza
 
 ALTER TABLE prodotti
     ADD CONSTRAINT FK_PRODOTTI_ON_CATEGORIA FOREIGN KEY (categoria_id) REFERENCES categoria (id);
+
+ALTER TABLE user_magazzino
+    ADD CONSTRAINT fk_usemag_on_magazzino FOREIGN KEY (magazzino_id) REFERENCES magazzino (id);
+
+ALTER TABLE user_magazzino
+    ADD CONSTRAINT fk_usemag_on_user FOREIGN KEY (user_id) REFERENCES users (id);

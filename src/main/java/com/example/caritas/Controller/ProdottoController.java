@@ -7,6 +7,7 @@ import com.example.caritas.Mapper.ProdottoMapper;
 import com.example.caritas.Service.ProdottoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -27,6 +28,7 @@ public class ProdottoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdottoResponseDto> getProdotto(@PathVariable UUID id){
+
         Prodotto prodotto = prodottoService.getProdottoById(id);
         ProdottoResponseDto prodottoResponseDto = ProdottoMapper.toDto(prodotto);
         return ResponseEntity.ok(prodottoResponseDto);
