@@ -1,0 +1,8 @@
+### LOGIN - ottieni JWT
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
