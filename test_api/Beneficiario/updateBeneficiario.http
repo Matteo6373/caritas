@@ -1,6 +1,7 @@
 ### PUT beneficiario
 PUT  http://localhost:8080/api/beneficiari/{{beneficiario_id}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Luigi",

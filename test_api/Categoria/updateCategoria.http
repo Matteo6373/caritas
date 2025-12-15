@@ -1,6 +1,7 @@
 ### Put categoria
 PUT http://localhost:8080/api/categorie/{{categoria_id}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "pulizia",

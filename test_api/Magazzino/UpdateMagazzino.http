@@ -1,6 +1,7 @@
 ### Put magazino
-PUT http://localhost:8080/api/magazzino/{{magazzino_id}}
+PUT http://localhost:8080/api/magazzino/edf7cdd0-4d2f-435d-9df8-ef034563eb2f
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "deposito di caldonazzo"

@@ -1,6 +1,7 @@
 ### Delete prodotto
-DELETE http://localhost:8080/api/magazzino/{{magazzino_id}}/giacenze
+DELETE http://localhost:8080/api/magazzino/edf7cdd0-4d2f-435d-9df8-ef034563eb2f/giacenze
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "prodottoId": "{{prodotto_id}}",

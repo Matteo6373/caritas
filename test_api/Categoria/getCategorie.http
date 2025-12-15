@@ -1,3 +1,4 @@
 ### Get categorie
 GET http://localhost:8080/api/categorie
 Content-Type: application/json
+Authorization: Bearer {{token}}

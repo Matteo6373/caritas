@@ -1,4 +1,4 @@
 ### Get magazzino
-GET http://localhost:8080/api/magazzino/{{magazzino_id}}
+GET http://localhost:8080/api/magazzino/779a9043-b84b-4208-882f-101a16755701
 Content-Type: application/json
-
+Authorization: Bearer {{token}}

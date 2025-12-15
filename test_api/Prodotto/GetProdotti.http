@@ -1,3 +1,4 @@
 ### Get prodotti
 GET http://localhost:8080/api/prodotti
 Content-Type: application/json
+Authorization: Bearer {{token}}

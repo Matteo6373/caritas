@@ -1,6 +1,7 @@
 ### POST beneficiario
 POST http://localhost:8080/api/beneficiari
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Mario",

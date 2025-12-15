@@ -1,6 +1,7 @@
 ### POST prodotto
 POST http://localhost:8080/api/magazzino
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "Levico Terme"

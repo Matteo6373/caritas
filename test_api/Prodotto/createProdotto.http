@@ -1,6 +1,7 @@
 ### POST prodotto
 POST http://localhost:8080/api/prodotti
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "nome": "pollo",

@@ -2,8 +2,8 @@ package com.example.caritas.Controller;
 
 import com.example.caritas.Dto.AuthResponse;
 import com.example.caritas.Dto.LoginRequest;
+import com.example.caritas.Security.CostumUserDetails;
 import com.example.caritas.Service.AuthenticationService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         try {
-            UserDetails userDetails = authenticationService.authenticate(
+            CostumUserDetails userDetails = (CostumUserDetails) authenticationService.authenticate(
                     loginRequest.getUsername(),
                     loginRequest.getPassword());
 
