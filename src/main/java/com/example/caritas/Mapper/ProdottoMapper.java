@@ -17,9 +17,7 @@ public class ProdottoMapper {
         prodottoResponseDto.setId(prodotto.getId().toString());
         prodottoResponseDto.setNome(prodotto.getNome());
         prodottoResponseDto.setDescrizione(prodotto.getDescrizione());
-        if (prodotto.getCategoria() != null) {
-            prodottoResponseDto.setCategoria(CategoriaMapper.toDto(prodotto.getCategoria()));
-        }
+        prodottoResponseDto.setCategoria(CategoriaMapper.toDto(prodotto.getCategoria()));
         return prodottoResponseDto;
 
     }

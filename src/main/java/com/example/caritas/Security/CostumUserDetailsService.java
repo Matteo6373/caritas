@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,11 +25,12 @@ public class CostumUserDetailsService implements UserDetailsService {
     @Override
     public CostumUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getUserByUsername(username);
-        Set<UUID> magazziniUUID = user.getMagazzini().stream()
-                .map(m -> m.getId())
+        Set<UUID> magazziniUUID = Optional.ofNullable(user.getMagazzini())
+                .orElse(Collections.emptySet())
+                .stream()
+                .map(Magazzino::getId)
                 .collect(Collectors.toSet());
         return new CostumUserDetails(
-                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getRole().toString(),

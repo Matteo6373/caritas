@@ -1,12 +1,14 @@
 package com.example.caritas.Security;
 
 import com.example.caritas.Service.AuthenticationService;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,7 +46,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             }catch (JwtException | IllegalArgumentException e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
                 return;
+            } catch (BadCredentialsException e) {
+                // Qui restituisci direttamente la risposta JSON/HTTP
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
+                return; // blocca la catena dei filtri
             }
         }
 

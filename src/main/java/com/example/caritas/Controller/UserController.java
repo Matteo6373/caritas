@@ -5,6 +5,7 @@ import com.example.caritas.Dto.UserRequestDto;
 import com.example.caritas.Dto.UserResponseDto;
 import com.example.caritas.Service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
-@PreAuthorize("authentication.principal.role == 'ROLE_ADMIN'")
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
     private UserService userService;
 
     @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto){
         UserResponseDto userResponseDto = userService.createUser(userRequestDto);
-        return ResponseEntity.ok().body(userResponseDto);
+        return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<UserResponseDto> deleteUser(@PathVariable UUID id){

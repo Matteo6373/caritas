@@ -33,7 +33,9 @@ public class User {
     private Set<Magazzino> magazzini = new HashSet<>();
     @PreRemove
     private void clearMagazzini() {
-        magazzini.clear();
+        if (magazzini != null) {
+            magazzini.clear();
+        }
     }
 
 }

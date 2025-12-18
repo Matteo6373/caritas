@@ -5,6 +5,7 @@ import com.example.caritas.Dto.CategoriaResponseDto;
 import com.example.caritas.Entity.Categoria;
 import com.example.caritas.Service.CategoriaService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,10 @@ public class CategoriaController {
     public ResponseEntity<CategoriaResponseDto> createCategoria(
             @RequestBody CategoriaRequestDto categoriaRequestDto){
         CategoriaResponseDto categoriaResponseDto = categoriaService.creaCategoria(categoriaRequestDto);
-        return ResponseEntity.ok().body(categoriaResponseDto);
+        return new ResponseEntity<>(categoriaResponseDto, HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<Set<CategoriaResponseDto>> trovaCategorias(){
+    public ResponseEntity<Set<CategoriaResponseDto>> trovaCategorie(){
         Set<CategoriaResponseDto> categorie =  categoriaService.getCategorias();
         return ResponseEntity.ok().body(categorie);
     }

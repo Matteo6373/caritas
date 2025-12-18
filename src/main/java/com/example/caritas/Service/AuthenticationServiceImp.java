@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,10 +38,11 @@ public class AuthenticationServiceImp implements AuthenticationService {
     public String generateToken(CostumUserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userDetails.getAuthorities().iterator().next().getAuthority());
-        claims.put("magazzini", userDetails.getMagazzini().stream()
+        claims.put("magazzini", Optional.ofNullable(userDetails.getMagazzini())
+                .orElse(Collections.emptySet())
+                .stream()
                 .map(UUID::toString)
                 .toList());
-        claims.put("userId", userDetails.getUserId().toString());
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
@@ -59,7 +61,18 @@ public class AuthenticationServiceImp implements AuthenticationService {
                     .getBody();
 
             String username = claims.getSubject();
-            return (CostumUserDetails) userDetailsService.loadUserByUsername(username);
+            String role = claims.get("role", String.class);
+            List<String> magazziniStr = claims.get("magazzini", List.class);
+            Set<UUID> magazziniUUID = (magazziniStr != null) ?
+                    magazziniStr.stream().map(UUID::fromString).collect(Collectors.toSet()) :
+                    Set.of();
+
+            return new CostumUserDetails(
+                    username,
+                    null,
+                    role,
+                    magazziniUUID
+            );
         } catch (ExpiredJwtException e) {
             throw new BadCredentialsException("Token JWT scaduto", e);
         } catch (JwtException | IllegalArgumentException e) {

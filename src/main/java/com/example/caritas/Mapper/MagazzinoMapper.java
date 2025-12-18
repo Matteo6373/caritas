@@ -6,6 +6,7 @@ import com.example.caritas.Dto.MagazzinoResponseDto;
 import com.example.caritas.Entity.Giacenza;
 import com.example.caritas.Entity.Magazzino;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,8 @@ public class MagazzinoMapper {
                     .map(GiacenzaMapper::toDto)
                     .collect(Collectors.toSet());
             dto.setGiacenze(giacenzeResponseDto);
+        }else{
+            dto.setGiacenze(new HashSet<>());
         }
         return dto;
     }

@@ -4,8 +4,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "nome": "surgelati",
-  "descrizione": "cibi freddi"
+  "nome": "frutta e verdura",
+  "descrizione": "vegetali"
 }
 
 > {% client.global.set("categoria_id", response.body.id) %}

@@ -13,7 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/beneficiari")
 @AllArgsConstructor
-@PreAuthorize("authentication.principal.role == 'ROLE_ADMIN'")
+@PreAuthorize("hasRole('ADMIN')")
 public class BeneficiarioController {
 
     BeneficiarioService beneficiarioService;

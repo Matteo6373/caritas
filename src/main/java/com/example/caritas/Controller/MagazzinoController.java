@@ -22,21 +22,21 @@ public class MagazzinoController {
     private MagazzinoService magazzinoService;
     private GiacenzaService giacenzaService;
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN' || authentication.principal.magazzini.contains(#id)")
+    @PreAuthorize("@authz.canAccessMagazzino(authentication, #id)")
     @GetMapping("/{id}")
     public ResponseEntity<MagazzinoResponseDto> findById(@PathVariable UUID id) {
         MagazzinoResponseDto magazzinoResponseDto = magazzinoService.findMagazzinoById(id);
         return ResponseEntity.ok(magazzinoResponseDto);
     }
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN'")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<MagazzinoResponseDto> createMagazzino(@RequestBody MagazzinoRequestDto magazzinoRequestDto) {
         MagazzinoResponseDto magazzinoResponseDto = magazzinoService.createMagazzino(magazzinoRequestDto);
         return ResponseEntity.ok(magazzinoResponseDto);
     }
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN' || authentication.principal.magazzini.contains(#id)")
+    @PreAuthorize("@authz.canAccessMagazzino(authentication, #id)")
     @PostMapping("/{id}/giacenze")
     public ResponseEntity<GiacenzaResponseDto> addGiacenza(
             @PathVariable UUID id, @RequestBody GiacenzaRequestDto giacenzaRequestDto) {
@@ -44,7 +44,7 @@ public class MagazzinoController {
         return ResponseEntity.ok(giacenzaResponseDto);
     }
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN' || authentication.principal.magazzini.contains(#id)")
+    @PreAuthorize("@authz.canAccessMagazzino(authentication, #id)")
     @DeleteMapping("/{id}/giacenze")
     public ResponseEntity<GiacenzaResponseDto> removeGiacenza(
             @PathVariable UUID id, @RequestBody GiacenzaRequestDto giacenzaRequestDto) {
@@ -52,14 +52,14 @@ public class MagazzinoController {
         return ResponseEntity.ok(giacenzaResponseDto);
     }
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN' || authentication.principal.magazzini.contains(#id)")
+    @PreAuthorize("@authz.canAccessMagazzino(authentication, #id)")
     @GetMapping("/{id}/beneficiari")
     public ResponseEntity<Set<BeneficiarioResponseDto>> findBeneficiari(@PathVariable UUID id) {
         Set<BeneficiarioResponseDto> beneficiariResponseDto = magazzinoService.findAllBeneficiarios(id);
         return ResponseEntity.ok(beneficiariResponseDto);
     }
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN'")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<MagazzinoResponseDto> updateMagazzino(
             @PathVariable UUID id, @RequestBody MagazzinoRequestDto magazzinoRequestDto) {
@@ -67,7 +67,7 @@ public class MagazzinoController {
         return ResponseEntity.ok(magazzinoResponseDto);
     }
 
-    @PreAuthorize("authentication.principal.role == 'ROLE_ADMIN'")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<MagazzinoResponseDto> removeMagazzino(@PathVariable UUID id) {
         MagazzinoResponseDto magazzinoResponseDto = magazzinoService.deleteMagazzino(id);

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,4 +19,6 @@ public class Categoria {
     @NotBlank
     private String nome;
     private String descrizione;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Set<Prodotto> prodotti = new HashSet<>();
 }

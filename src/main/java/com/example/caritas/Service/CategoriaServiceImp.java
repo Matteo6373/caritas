@@ -60,15 +60,15 @@ public class CategoriaServiceImp implements CategoriaService{
     @Override
     public CategoriaResponseDto deleteCategoria(UUID id) {
         Categoria categoria = getCategoriaById(id);
-        try {
-            categoriaRepository.delete(categoria);
-            return CategoriaMapper.toDto(categoria);
+        if (categoria.getProdotti() != null && !categoria.getProdotti().isEmpty()) {
+            throw new DeleteException(
+                    "Can't delete categoria with id: " + id + " because it is referenced by a product"
+            );
         }
-        catch (DataIntegrityViolationException e) {
-            throw new DeleteException("" +
-                    "can't delete categoria with id: " + id + " because references a product");
-        }
+        categoriaRepository.delete(categoria);
+        return CategoriaMapper.toDto(categoria);
     }
+
 
     public Categoria getCategoriaById(UUID id) {
         if(id == null) {

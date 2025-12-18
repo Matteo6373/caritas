@@ -17,7 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 public class CostumUserDetails implements UserDetails {
-    private final UUID userId;
     private final String username;
     private final String password;
     private final String role;
@@ -56,9 +55,6 @@ public class CostumUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
-    }
-    public UUID getUserId() {
-        return userId;
     }
     public boolean hasAccessToMagazzino(UUID magazzinoId) {
         return magazzini.contains(magazzinoId);

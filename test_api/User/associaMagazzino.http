@@ -1,5 +1,5 @@
 ### Associa user a un magazzino
-POST http://localhost:8080/user/6009166c-8a60-4ff4-84de-06e6f2d6e5ed/magazzino
+POST http://localhost:8080/user/a3050aac-76dc-4181-944d-f2a0c3ddac78/magazzino
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

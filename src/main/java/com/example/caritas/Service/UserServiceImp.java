@@ -18,6 +18,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,7 +49,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
-        User user = UserMapper.toEntity(userRequestDto,null);
+        User user = UserMapper.toEntity(userRequestDto,new HashSet<>());
         if(userRepository.existsByUsername(user.getUsername())) {
             throw new AlreadyExistsByNomeException(
                     "A User with this username already exists:"
@@ -77,7 +78,8 @@ public class UserServiceImp implements UserService {
     public UserResponseDto associaMagazzino(UUID UserID, UUID magazzinoUUID) {
         User user = getUserById(UserID);
         Magazzino magazzino = magazzinoService.getMagazzino(magazzinoUUID);
-        if(!user.getMagazzini().contains(magazzino)) {
+        Set<Magazzino> magazzini = user.getMagazzini();
+        if(!magazzini.contains(magazzino)) {
             user.getMagazzini().add(magazzino);
             userRepository.save(user);
             return UserMapper.toDto(user);
@@ -89,7 +91,8 @@ public class UserServiceImp implements UserService {
     public UserResponseDto rimuoviMagazzino(UUID UserID, UUID magazzinoUUID) {
         User user = getUserById(UserID);
         Magazzino magazzino = magazzinoService.getMagazzino(magazzinoUUID);
-        if(user.getMagazzini().contains(magazzino)) {
+        Set<Magazzino> magazzini = user.getMagazzini();
+        if(magazzini.contains(magazzino)) {
             user.getMagazzini().remove(magazzino);
             userRepository.save(user);
             return UserMapper.toDto(user);

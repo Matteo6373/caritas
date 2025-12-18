@@ -6,6 +6,7 @@ import com.example.caritas.Dto.UserResponseDto;
 import com.example.caritas.Entity.Magazzino;
 import com.example.caritas.Entity.User;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,6 +21,8 @@ public class UserMapper {
             Set<UUID> magazziniUUIDs = magazzini.stream()
                     .map(Magazzino::getId).collect(Collectors.toSet());
             userResponseDto.setMagazzini(magazziniUUIDs);
+        }else {
+            userResponseDto.setMagazzini(new HashSet<>());
         }
         userResponseDto.setId(user.getId());
         return userResponseDto;
