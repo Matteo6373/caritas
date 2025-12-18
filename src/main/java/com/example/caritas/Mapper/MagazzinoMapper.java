@@ -6,7 +6,6 @@ import com.example.caritas.Dto.MagazzinoResponseDto;
 import com.example.caritas.Entity.Giacenza;
 import com.example.caritas.Entity.Magazzino;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 

@@ -4,8 +4,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "nome": "pollo",
-  "descrizione": "allevato a terra",
+  "nome": "gelato",
+  "descrizione": "",
   "CategoriaId": "{{categoria_id}}"
 }
 > {% client.global.set("prodotto_id", response.body.id) %}

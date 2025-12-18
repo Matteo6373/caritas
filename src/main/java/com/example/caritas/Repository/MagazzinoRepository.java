@@ -12,11 +12,4 @@ import java.util.UUID;
 @Repository
 public interface MagazzinoRepository extends JpaRepository<Magazzino, UUID> {
     boolean existsByNome(String nome);
-    @Query("""
-        select m.id
-        from User u
-        join u.magazzini m
-        where u.id = :userId
-    """)
-    Set<UUID> findMagazziniIdByUserId(@Param("userId") UUID userId);
 }

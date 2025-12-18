@@ -1,6 +1,7 @@
 package com.example.caritas.config;
 
 
+import com.example.caritas.Security.CustomAccessDeniedHandler;
 import com.example.caritas.Security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,15 +31,18 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http
+            , JwtAuthenticationFilter jwtAuthenticationFilter
+            , CustomAccessDeniedHandler accessDeniedHandler)
+            throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/api/prodotti/**").hasRole("ADMIN")
-                        .requestMatchers("/api/categorie/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler(accessDeniedHandler))
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

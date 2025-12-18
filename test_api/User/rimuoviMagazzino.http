@@ -1,0 +1,8 @@
+### togli user a un magazzino
+DELETE http://localhost:8080/user/34c1fca4-8a2b-4ae1-b64c-d2518906e6e5/magazzino
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": "edf7cdd0-4d2f-435d-9df8-ef034563eb2f"
+}

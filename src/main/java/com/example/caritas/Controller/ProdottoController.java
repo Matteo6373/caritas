@@ -7,6 +7,7 @@ import com.example.caritas.Mapper.ProdottoMapper;
 import com.example.caritas.Service.ProdottoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/prodotti")
 @AllArgsConstructor
+@PreAuthorize("isAuthenticated()")
 public class ProdottoController {
 
     ProdottoService prodottoService;

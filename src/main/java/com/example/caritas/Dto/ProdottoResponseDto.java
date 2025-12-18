@@ -4,8 +4,6 @@ package com.example.caritas.Dto;
 
 import lombok.*;
 
-import java.util.Set;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor

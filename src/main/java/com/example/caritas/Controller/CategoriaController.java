@@ -6,6 +6,7 @@ import com.example.caritas.Entity.Categoria;
 import com.example.caritas.Service.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,6 +16,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/categorie")
 @AllArgsConstructor
+@PreAuthorize("isAuthenticated()")
+
 public class CategoriaController {
     private CategoriaService categoriaService;
 

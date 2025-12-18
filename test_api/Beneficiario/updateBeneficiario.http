@@ -7,6 +7,6 @@ Authorization: Bearer {{token}}
   "nome": "Luigi",
   "cognome": "Verdi",
   "dataNascita": "1995-07-11",
-  "magazzinoId": "{{magazzino_id}}"
+  "magazzinoId": "edf7cdd0-4d2f-435d-9df8-ef034563eb2f"
 }
 

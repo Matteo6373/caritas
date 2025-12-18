@@ -31,4 +31,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "magazzino_id")
     )
     private Set<Magazzino> magazzini = new HashSet<>();
+    @PreRemove
+    private void clearMagazzini() {
+        magazzini.clear();
+    }
+
 }

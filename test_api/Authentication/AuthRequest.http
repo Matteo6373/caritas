@@ -3,7 +3,7 @@ POST http://localhost:8080/auth
 Content-Type: application/json
 
 {
-  "username": "cristian",
+  "username": "matteo",
   "password": "password"
 }
 > {% client.global.set("token", response.body.token) %}

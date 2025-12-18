@@ -3,12 +3,14 @@ package com.example.caritas.Service;
 import com.example.caritas.Dto.BeneficiarioResponseDto;
 import com.example.caritas.Dto.MagazzinoRequestDto;
 import com.example.caritas.Dto.MagazzinoResponseDto;
+import com.example.caritas.Entity.Beneficiario;
 import com.example.caritas.Entity.Categoria;
 import com.example.caritas.Entity.Magazzino;
 import com.example.caritas.Entity.Prodotto;
 import com.example.caritas.Mapper.BeneficiarioMapper;
 import com.example.caritas.Mapper.MagazzinoMapper;
 import com.example.caritas.Mapper.ProdottoMapper;
+import com.example.caritas.Repository.BeneficiarioRepository;
 import com.example.caritas.Repository.MagazzinoRepository;
 import com.example.caritas.exception.AlreadyExistsByNomeException;
 import com.example.caritas.exception.NullException;
@@ -83,6 +85,8 @@ public class MagazzinoServiceImp implements MagazzinoService{
         magazzinoRepository.delete(magazzino);
         return MagazzinoMapper.toDto(magazzino);
     }
+
+
 
     //    @Override
 //    public Set<GiacenzaResponseDto> findAllGiacenzeByMagazzinoId(UUID magazzinoId) {

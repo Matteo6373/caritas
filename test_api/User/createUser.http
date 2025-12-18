@@ -1,0 +1,11 @@
+### Creazione utente admin
+POST http://localhost:8080/user
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "test",
+  "password": "admin123",
+  "role": "ROLE_VOLONTARIO"
+}
+
