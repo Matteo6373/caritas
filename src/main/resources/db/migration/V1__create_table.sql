@@ -37,7 +37,7 @@ CREATE TABLE prodotti
     id           UUID         NOT NULL,
     nome         VARCHAR(255) NOT NULL,
     descrizione  VARCHAR(255),
-    categoria_id UUID,
+    categoria_id UUID         NOT NULL,
     CONSTRAINT pk_prodotti PRIMARY KEY (id)
 );
 

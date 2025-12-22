@@ -1,5 +1,5 @@
 ### Delete prodotto
-DELETE http://localhost:8080/api/magazzino/edf7cdd0-4d2f-435d-9df8-ef034563eb2f/giacenze
+DELETE http://localhost:8080/api/magazzino/5913210f-a25f-4f32-b1d5-782f0d352595/giacenze
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

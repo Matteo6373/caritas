@@ -1,9 +1,10 @@
 ### Put prodotti
 PUT http://localhost:8080/api/prodotti/{{prodotto_id}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "nome": "pesce",
+  "nome": "pesce spada",
   "descrizione": "dal lago di levico",
   "CategoriaId": "{{categoria_id}}"
 }

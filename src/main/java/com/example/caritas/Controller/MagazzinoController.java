@@ -73,4 +73,10 @@ public class MagazzinoController {
         MagazzinoResponseDto magazzinoResponseDto = magazzinoService.deleteMagazzino(id);
         return ResponseEntity.ok(magazzinoResponseDto);
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public ResponseEntity<Set<MagazzinoResponseDto>> findAllMagazzino() {
+        Set<MagazzinoResponseDto> magazzinoResponseDtos = magazzinoService.findAllMagazzini();
+        return ResponseEntity.ok(magazzinoResponseDtos);
+    }
 }

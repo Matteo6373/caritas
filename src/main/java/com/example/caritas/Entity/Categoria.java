@@ -19,6 +19,16 @@ public class Categoria {
     @NotBlank
     private String nome;
     private String descrizione;
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "categoria")
     private Set<Prodotto> prodotti = new HashSet<>();
+
+    public void addProdotto(Prodotto prodotto) {
+        prodotti.add(prodotto);
+        prodotto.setCategoria(this);
+    }
+
+    public void removeProdotto(Prodotto prodotto) {
+        prodotti.remove(prodotto);
+        prodotto.setCategoria(null);
+    }
 }

@@ -12,6 +12,7 @@ import com.example.caritas.Repository.UserRepository;
 import com.example.caritas.exception.AlreadyExistsByNomeException;
 import com.example.caritas.exception.DeleteException;
 import com.example.caritas.exception.NullException;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,6 +26,7 @@ import java.util.UUID;
 @Service
 @Data
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;

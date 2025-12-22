@@ -4,6 +4,7 @@ import com.example.caritas.Dto.CategoriaRequestDto;
 import com.example.caritas.Dto.CategoriaResponseDto;
 import com.example.caritas.Dto.ProdottoRequestDto;
 import com.example.caritas.Dto.ProdottoResponseDto;
+import com.example.caritas.Entity.Categoria;
 import com.example.caritas.Entity.Prodotto;
 import com.example.caritas.Entity.Role;
 import com.example.caritas.Security.CostumUserDetails;
@@ -11,8 +12,10 @@ import com.example.caritas.Service.AuthenticationService;
 import com.example.caritas.Service.CategoriaService;
 import com.example.caritas.Service.ProdottoService;
 import jakarta.transaction.Transactional;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MediaType;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
-import java.util.Set;
 import java.util.UUID;
 
 @SpringBootTest
@@ -38,8 +40,11 @@ import java.util.UUID;
 @ActiveProfiles("test")
 @Transactional
 public class CategoriaControllerImpIntegrationTest {
+    @Autowired
     private CategoriaService  categoriaService;
+    @Autowired
     private ObjectMapper mapper;
+    @Autowired
     private MockMvc mockMvc;
     private static String token;
 
@@ -61,7 +66,7 @@ public class CategoriaControllerImpIntegrationTest {
         token = authenticationService.generateToken(costumUserDetails);
     }
     @Test
-    void testThatCreateCategorySuccessfullyReturns200AndThenUpdateCategory() throws Exception {
+    void testThatCreateCategorySuccessfullyReturns201AndThenUpdateCategory() throws Exception {
         CategoriaRequestDto  categoriaRequestDto = new CategoriaRequestDto();
         categoriaRequestDto.setNome("categoriaTest");
         categoriaRequestDto.setDescrizione("descrizioneTest");
@@ -118,12 +123,34 @@ public class CategoriaControllerImpIntegrationTest {
         prodottoRequestDto.setNome("prodottoTest");
         prodottoRequestDto.setDescrizione("descrizioneTest");
         prodottoRequestDto.setCategoriaId(UUID.fromString(categoriaResponseDto.getId()));
-        prodottoService.creaProdotto(prodottoRequestDto);
+        ProdottoResponseDto prodottoResponseDto = prodottoService.creaProdotto(prodottoRequestDto);
+
+        Prodotto prodotto = prodottoService.getProdottoById(UUID.fromString(prodottoResponseDto.getId()));
+        Categoria categoria = categoriaService.getCategoriaById(UUID.fromString(categoriaResponseDto.getId()));
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/categorie/"+categoriaResponseDto.getId())
                         .contentType(String.valueOf(MediaType.APPLICATION_JSON))
                         .header("Authorization", "Bearer " + token))
-                .andExpect(MockMvcResultMatchers.status().isConflict())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+                .andExpect(MockMvcResultMatchers.status().isConflict());
+    }
+    @Test
+    void testThatFindCategorieRetunAllCategoriesSuccessfully() throws Exception {
+        CategoriaRequestDto  categoriaRequestDto = new CategoriaRequestDto();
+        categoriaRequestDto.setNome("categoriaTest");
+        categoriaService.creaCategoria(categoriaRequestDto);
+
+        categoriaRequestDto.setNome("categoriaTest2");
+        categoriaService.creaCategoria(categoriaRequestDto);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/categorie")
+                        .contentType(String.valueOf(MediaType.APPLICATION_JSON))
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*].nome", Matchers.containsInAnyOrder("categoriaTest", "categoriaTest2")));
+
     }
 }

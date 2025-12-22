@@ -6,6 +6,7 @@ import com.example.caritas.Entity.Prodotto;
 import com.example.caritas.Mapper.ProdottoMapper;
 import com.example.caritas.Service.ProdottoService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +26,7 @@ public class ProdottoController {
     @PostMapping
     public ResponseEntity<ProdottoResponseDto> creareProdotto(@RequestBody ProdottoRequestDto prodottoRequestDto){
         ProdottoResponseDto prodottoResponseDto = prodottoService.creaProdotto(prodottoRequestDto);
-        return ResponseEntity.ok(prodottoResponseDto);
+        return new ResponseEntity<>(prodottoResponseDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

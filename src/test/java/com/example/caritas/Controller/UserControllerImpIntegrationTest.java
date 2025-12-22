@@ -9,18 +9,17 @@ import com.example.caritas.Service.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MediaType;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tools.jackson.databind.ObjectMapper;
@@ -38,17 +37,19 @@ import static org.hamcrest.Matchers.not;
 @ActiveProfiles("test")
 @Transactional
 public class UserControllerImpIntegrationTest {
+    @Autowired
     private MockMvc mockMvc;
+    @Autowired
     private ObjectMapper mapper;
-    private AuthenticationService authenticationService;
+    @Autowired
     private UserService userService;
+    @Autowired
     private MagazzinoService magazzinoService;
     private static String token;
     @Autowired
-    public UserControllerImpIntegrationTest(MockMvc mockMvc, ObjectMapper mapper, AuthenticationService authenticationService, UserService userService, MagazzinoService magazzinoService) {
+    public UserControllerImpIntegrationTest(MockMvc mockMvc, ObjectMapper mapper, UserService userService, MagazzinoService magazzinoService) {
         this.mockMvc = mockMvc;
         this.mapper = mapper;
-        this.authenticationService  = authenticationService;
         this.userService = userService;
         this.magazzinoService = magazzinoService;
     }

@@ -15,5 +15,6 @@ public interface MagazzinoService {
     public Set<BeneficiarioResponseDto> findAllBeneficiarios(UUID magazzinoId);
     public MagazzinoResponseDto updateMagazzino(MagazzinoRequestDto magazzinoRequestDto, UUID uuid);
     public MagazzinoResponseDto deleteMagazzino(UUID uuid);
+    public Set<MagazzinoResponseDto> findAllMagazzini();
 //    public Set<GiacenzaResponseDto> findAllGiacenzeByMagazzinoId(UUID magazzinoId);
 }

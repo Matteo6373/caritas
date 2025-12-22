@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequestMapping("/api/categorie")
 @AllArgsConstructor
 @PreAuthorize("isAuthenticated()")
-
 public class CategoriaController {
     private CategoriaService categoriaService;
 

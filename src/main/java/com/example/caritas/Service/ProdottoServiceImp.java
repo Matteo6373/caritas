@@ -12,6 +12,7 @@ import com.example.caritas.Repository.ProdottoRepository;
 import com.example.caritas.exception.AlreadyExistsByNomeException;
 import com.example.caritas.exception.DeleteException;
 import com.example.caritas.exception.NullException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class ProdottoServiceImp implements ProdottoService {
 
     ProdottoRepository prodottoRepository;
@@ -36,6 +38,7 @@ public class ProdottoServiceImp implements ProdottoService {
                     "A Product with this nome already exists:"
                             + prodottoRequestDto.getNome());
         }
+        categoria.addProdotto(prodotto);
         Prodotto prodottoReturned = prodottoRepository.save(prodotto);
         return ProdottoMapper.toDto(prodottoReturned);
     }

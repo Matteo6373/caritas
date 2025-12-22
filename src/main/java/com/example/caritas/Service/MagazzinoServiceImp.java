@@ -19,6 +19,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class MagazzinoServiceImp implements MagazzinoService{
     private MagazzinoRepository magazzinoRepository;
 
@@ -84,6 +87,19 @@ public class MagazzinoServiceImp implements MagazzinoService{
         Magazzino magazzino = getMagazzino(uuid);
         magazzinoRepository.delete(magazzino);
         return MagazzinoMapper.toDto(magazzino);
+    }
+
+    @Override
+    public Set<MagazzinoResponseDto> findAllMagazzini() {
+        List<Magazzino> magazzini = magazzinoRepository.findAll();
+
+        if (magazzini == null) {
+            return Collections.emptySet();
+        }
+
+        return magazzini.stream()
+                .map(MagazzinoMapper::toDto)
+                .collect(Collectors.toSet());
     }
 
 

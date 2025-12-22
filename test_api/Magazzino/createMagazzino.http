@@ -4,6 +4,6 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "nome": "Levico Terme"
+  "nome": "Caldonazzo"
 }
 > {% client.global.set("magazzino_id", response.body.id) %}

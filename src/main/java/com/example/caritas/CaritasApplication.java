@@ -16,6 +16,7 @@ public class CaritasApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
     }
 }
 

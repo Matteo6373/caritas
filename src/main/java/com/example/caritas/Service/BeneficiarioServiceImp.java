@@ -19,6 +19,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class BeneficiarioServiceImp implements BeneficiarioService {
     private BeneficiarioRepository beneficiarioRepository;
     private MagazzinoService magazzinoService;

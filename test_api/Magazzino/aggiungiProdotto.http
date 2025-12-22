@@ -1,5 +1,5 @@
 ### POST prodotto
-POST http://localhost:8080/api/magazzino/779a9043-b84b-4208-882f-101a16755701/giacenze
+POST http://localhost:8080/api/magazzino/421bb96d-2696-45b0-98e0-8f903c37ea46/giacenze
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
