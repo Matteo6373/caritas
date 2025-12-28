@@ -4,7 +4,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "prodottoId": "{{prodotto_id}}",
+  "prodottoId": "8cafbc55-7c3d-451c-850b-a73164ce8fa6",
   "quantita": 4
 }
 
