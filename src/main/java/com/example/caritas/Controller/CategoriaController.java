@@ -30,8 +30,6 @@ public class CategoriaController {
     @GetMapping
     public ResponseEntity<Set<CategoriaResponseDto>> trovaCategorie() throws InterruptedException {
         Set<CategoriaResponseDto> categorie =  categoriaService.getCategorias();
-        Thread.sleep(500);
-        System.out.println(Thread.currentThread().toString());
         return ResponseEntity.ok().body(categorie);
     }
     @DeleteMapping("/{id}")
