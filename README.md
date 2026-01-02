@@ -33,6 +33,10 @@ Il sistema implementa un filtro di sicurezza personalizzato che:
 ### 🐳 Setup e Installazione (Docker)
 Per avviare il backend e il database in un unico comando:
 
-1. Clonare il repository:
    ```bash
-   git clone github.com
+   # 1. Clonare il repository
+    git clone https://github.com/Matteo6373/caritas
+    cd caritas
+    
+    # 2. Avviare backend e database con Docker
+    docker-compose up -d --build
