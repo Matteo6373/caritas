@@ -16,6 +16,11 @@ public class CaritasApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode("admin");
+        System.out.println(hashedPassword);
+        hashedPassword = encoder.encode("test");
+        System.out.println(hashedPassword);
 
     }
 }

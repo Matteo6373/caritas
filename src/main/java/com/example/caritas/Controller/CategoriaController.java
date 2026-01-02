@@ -28,7 +28,7 @@ public class CategoriaController {
         return new ResponseEntity<>(categoriaResponseDto, HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<Set<CategoriaResponseDto>> trovaCategorie() throws InterruptedException {
+    public ResponseEntity<Set<CategoriaResponseDto>> trovaCategorie() {
         Set<CategoriaResponseDto> categorie =  categoriaService.getCategorias();
         return ResponseEntity.ok().body(categorie);
     }

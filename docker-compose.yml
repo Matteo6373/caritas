@@ -1,0 +1,42 @@
+services:
+  # --- DATABASE: PostgreSQL ---
+  db:
+    image: postgres:16-alpine
+    container_name: caritas-db
+    restart: always
+    environment:
+      - POSTGRES_DB=caritas_db
+      - POSTGRES_USER=utente
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5000:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U utente -d caritas_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- BACKEND: Spring Boot App ---
+  backend:
+    build: .
+    container_name: caritas-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/caritas_db
+      - SPRING_DATASOURCE_USERNAME=utente
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_FLYWAY_ENABLED=true
+      - JWT_SECRET=oY2wziA1kL6ofZaJXQGJ5AgDrlREkxX1SoKEP4jRNZ6
+      - JWT_EXPIRATION=8640000
+    restart: on-failure
+
+volumes:
+  postgres_data:
