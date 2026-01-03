@@ -1,8 +1,15 @@
+version: '3.9'
+
+networks:
+  caritas-network:
+
 services:
   # --- DATABASE: PostgreSQL ---
   db:
     image: postgres:16-alpine
     container_name: caritas-db
+    networks:
+      - caritas-network
     restart: always
     environment:
       - POSTGRES_DB=caritas_db
@@ -22,6 +29,8 @@ services:
   backend:
     build: .
     container_name: caritas-backend
+    networks:
+      - caritas-network
     ports:
       - "8080:8080"
     depends_on:
